@@ -2,18 +2,21 @@ package com.andyPendragon.marcheur;
 
 import com.andyPendragon.Carte;
 import com.andyPendragon.Lieu;
+import com.andyPendragon.Marche;
 import com.andyPendragon.Marcheur;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MarcheTest {
 
     @Test
     void marche_aleatoire_de_bjarni() {
+
         var marais = new Lieu("Marais");
         var sekolintsika = new Lieu("Sekolintsika");
         var hei = new Lieu("HEI");
@@ -22,40 +25,47 @@ public class MarcheTest {
         var balancoire = new Lieu("Balancoire");
         var boulevard_de_l_europe = new Lieu("Boulevard de l'Europe");
         var esti = new Lieu("ESTI");
+        
+        marais.addLieuAdjacent(sekolintsika);
 
-        marais.addLieuxAdjacents(sekolintsika);
+        sekolintsika.addLieuAdjacent(marais);
+        sekolintsika.addLieuAdjacent(hei);
 
-        sekolintsika.addLieuxAdjacents(marais);
-        sekolintsika.addLieuxAdjacents(hei);
+        hei.addLieuAdjacent(sekolintsika);
+        hei.addLieuAdjacent(pullman);
+        hei.addLieuAdjacent(balancoire);
 
-        hei.addLieuxAdjacents(sekolintsika);
-        hei.addLieuxAdjacents(pullman);
-        hei.addLieuxAdjacents(balancoire);
+        pullman.addLieuAdjacent(hei);
+        pullman.addLieuAdjacent(nexta);
+        pullman.addLieuAdjacent(balancoire);
 
-        pullman.addLieuxAdjacents(hei);
-        pullman.addLieuxAdjacents(nexta);
-        pullman.addLieuxAdjacents(balancoire);
+        nexta.addLieuAdjacent(pullman);
 
-        balancoire.addLieuxAdjacents(pullman);
-        balancoire.addLieuxAdjacents(hei);
-        balancoire.addLieuxAdjacents(nexta);
-        balancoire.addLieuxAdjacents(boulevard_de_l_europe);
-        balancoire.addLieuxAdjacents(esti);
+        balancoire.addLieuAdjacent(pullman);
+        balancoire.addLieuAdjacent(hei);
+        balancoire.addLieuAdjacent(boulevard_de_l_europe);
+        balancoire.addLieuAdjacent(esti);
+
+        boulevard_de_l_europe.addLieuAdjacent(esti);
+        boulevard_de_l_europe.addLieuAdjacent(balancoire);
+
+        esti.addLieuAdjacent(boulevard_de_l_europe);
+        esti.addLieuAdjacent(balancoire);
 
         var carteAntananarivo = new Carte("Antananarivo", Set.of(marais, sekolintsika, hei, pullman, nexta, balancoire, boulevard_de_l_europe, esti));
 
         var bjarni = new Marcheur("Bjarni");
 
-        var marcheDeBjarni = bjarni.marcher(carteAntananarivo, hei, esti);
+        Marche marcheDeBjarni = bjarni.marcher(carteAntananarivo, hei, esti);
 
-        List<Lieu> lieuxVisites = marcheDeBjarni.lieuxVisitee();
-        System.out.println(lieuxVisites);
+        ArrayList<Lieu> lieuxVisites = marcheDeBjarni.lieuxVisitee();
+        for (Lieu lieuxVisite : lieuxVisites) System.out.println(lieuxVisite.getNom());
 
-//        assertEquals(hei, lieuxVisites.getFirst(), "Le lieu de départ doit être HEI");
-//        assertEquals(esti, lieuxVisites.getLast(), "Le lieu d'arrivée doit être ESTI");
-//
-//        int meilleurMarchePossible = 3;
-//        assertTrue(lieuxVisites.size() >= meilleurMarche);
+        assertEquals(hei, lieuxVisites.getFirst(), "Le lieu de départ doit être HEI");
+        assertEquals(esti, lieuxVisites.getLast(), "Le lieu d'arrivée doit être ESTI");
+
+        int deplacementMinimale = 3;
+        assertTrue(lieuxVisites.size() >= deplacementMinimale);
 
 //        for (int i = 0; i < lieuxVisites.size() - 1; i++) {
 //            Lieu lieuActuel = lieuxVisites.get(i);
