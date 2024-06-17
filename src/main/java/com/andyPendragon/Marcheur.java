@@ -1,24 +1,23 @@
 package com.andyPendragon;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public record Marcheur(String nom) {
-    public Marche marcher(Carte carte, Lieu depart, Lieu arrivee) {
-        List<Lieu> lieuxVisites = new ArrayList<>();
+    public Marche marcher(Carte carte, Lieu depart, Lieu arrivee) throws AucunLieuAdjacent {
+        ArrayList<Lieu> lieuxVisites = new ArrayList<>();
         Random random = new Random();
 
         lieuxVisites.add(depart);
         Lieu lieuActuel = depart;
 
-        while (!lieuActuel.equals(arrivee)) {
-            List<Lieu> lieuxAdjacents = lieuActuel.getLieuxAdjacents();
+        while (!lieuxVisites.contains(arrivee)) {
+            ArrayList<Lieu> lieuxAdjacents = lieuActuel.getLieuxAdjacents();
 
             if (lieuxAdjacents.isEmpty()) {
-                break;
+                System.out.println(lieuActuel.getNom() + ": " + lieuxAdjacents.size() +" elements");
+                throw new AucunLieuAdjacent();
             }
-
             int indexAleatoire = random.nextInt(lieuxAdjacents.size());
             lieuActuel = lieuxAdjacents.get(indexAleatoire);
 

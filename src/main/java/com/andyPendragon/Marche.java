@@ -1,6 +1,6 @@
 package com.andyPendragon;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public record Marche(List<Lieu> lieuxVisitee) {
+public record Marche(ArrayList<Lieu> lieuxVisitee) {
 }

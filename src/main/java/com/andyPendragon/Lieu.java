@@ -1,26 +1,25 @@
 package com.andyPendragon;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Lieu {
     private String nom;
     private ArrayList<Lieu> lieuxAdjacents; // Must be a Set<Lieu> but List ease the readibility
-    private ArrayList<Lieu> lieuxAdjacents; // Must be a Set<Lieu> but List ease the readibility
 
     public Lieu(String nom){
         this.nom = nom;
-        this.lieuxAdjacents = List.of();
+        this.lieuxAdjacents = new ArrayList<>();
     }
 
     public String getNom() {
         return nom;
     }
 
-    public List<Lieu> getLieuxAdjacents() {
+    public ArrayList<Lieu> getLieuxAdjacents() {
         return lieuxAdjacents;
     }
 
-    public void addLieuxAdjacents(Lieu lieuAjoutee) {
-        lieuxAdjacents.add(lieuAjoutee);
+    public void addLieuAdjacent(Lieu lieuAdjacent) {
+        lieuxAdjacents.add(lieuAdjacent);
     }
 }
