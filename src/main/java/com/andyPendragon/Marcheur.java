@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public record Marcheur(String nom) {
-    public Marche marcher(Carte carte, Lieu depart, Lieu arrivee) throws AucunLieuAdjacent {
+    public Marche marcher(Lieu depart, Lieu arrivee) throws AucunLieuAdjacent {
         ArrayList<Lieu> lieuxVisites = new ArrayList<>();
+
         Random random = new Random();
 
         lieuxVisites.add(depart);

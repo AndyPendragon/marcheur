@@ -1,13 +1,11 @@
 package com.andyPendragon.marcheur;
 
-import com.andyPendragon.Carte;
 import com.andyPendragon.Lieu;
 import com.andyPendragon.Marche;
 import com.andyPendragon.Marcheur;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -52,11 +50,11 @@ public class MarcheTest {
         esti.addLieuAdjacent(boulevard_de_l_europe);
         esti.addLieuAdjacent(balancoire);
 
-        var carteAntananarivo = new Carte("Antananarivo", Set.of(marais, sekolintsika, hei, pullman, nexta, balancoire, boulevard_de_l_europe, esti));
+//        var carteAntananarivo = new Carte("Antananarivo", Set.of(marais, sekolintsika, hei, pullman, nexta, balancoire, boulevard_de_l_europe, esti));
 
         var bjarni = new Marcheur("Bjarni");
 
-        Marche marcheDeBjarni = bjarni.marcher(carteAntananarivo, hei, esti);
+        Marche marcheDeBjarni = bjarni.marcher(hei, esti);
 
         ArrayList<Lieu> lieuxVisites = marcheDeBjarni.lieuxVisitee();
         for (Lieu lieuxVisite : lieuxVisites) System.out.println(lieuxVisite.getNom());
